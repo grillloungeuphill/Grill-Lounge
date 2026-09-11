@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Page Not Found — Grill Lounge</title>
+<meta name="robots" content="noindex, follow">
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,300;1,9..144,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --background:#0C0907;
+  --foreground:#F0E5CC;
+  --card:#161009;
+  --primary:#C87B28;
+  --muted-foreground:#9A7B52;
+  --accent:#E8932A;
+  --border:rgba(200,123,40,0.15);
+  --ease:cubic-bezier(0.22,1,0.36,1);
+}
+*{box-sizing:border-box; margin:0; padding:0;}
+html,body{height:100%;}
+body{
+  background:var(--background);
+  color:var(--foreground);
+  font-family:'Outfit',sans-serif;
+  display:flex; align-items:center; justify-content:center;
+  overflow:hidden;
+  position:relative;
+}
+.font-display{font-family:'Fraunces',serif;}
+
+/* Ember particle background */
+.embers{position:absolute; inset:0; overflow:hidden; pointer-events:none;}
+.ember{
+  position:absolute; bottom:-20px;
+  width:4px; height:4px; border-radius:50%;
+  background:var(--primary);
+  opacity:0;
+  animation:rise linear infinite;
+  box-shadow:0 0 8px 2px rgba(200,123,40,0.5);
+}
+@keyframes rise{
+  0%{transform:translateY(0) translateX(0); opacity:0;}
+  10%{opacity:.9;}
+  90%{opacity:.5;}
+  100%{transform:translateY(-110vh) translateX(var(--drift, 20px)); opacity:0;}
+}
+
+.wrap{
+  position:relative; z-index:2;
+  text-align:center;
+  padding:24px;
+  max-width:560px;
+}
+.eyebrow{
+  font-size:11px; letter-spacing:0.5em; text-transform:uppercase;
+  color:var(--primary); margin-bottom:28px;
+  opacity:0; animation:fadeUp .9s var(--ease) .1s forwards;
+}
+.big-404{
+  font-family:'Fraunces',serif;
+  font-size:clamp(88px, 22vw, 180px);
+  line-height:0.9;
+  letter-spacing:-0.02em;
+  background:linear-gradient(180deg, var(--foreground) 0%, var(--primary) 120%);
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+  opacity:0; animation:fadeUp 1s var(--ease) .25s forwards;
+}
+h1{
+  font-family:'Fraunces',serif;
+  font-size:clamp(22px, 4vw, 30px);
+  margin-top:12px;
+  opacity:0; animation:fadeUp 1s var(--ease) .4s forwards;
+}
+p{
+  font-size:14.5px; color:var(--muted-foreground); line-height:1.7;
+  margin-top:14px; max-width:420px; margin-left:auto; margin-right:auto;
+  opacity:0; animation:fadeUp 1s var(--ease) .55s forwards;
+}
+.actions{
+  margin-top:36px;
+  display:flex; gap:14px; justify-content:center; flex-wrap:wrap;
+  opacity:0; animation:fadeUp 1s var(--ease) .7s forwards;
+}
+.btn-primary{
+  padding:15px 34px;
+  background:var(--primary); color:#0C0907;
+  font-size:12px; letter-spacing:0.15em; text-transform:uppercase; font-weight:500;
+  transition:background .35s var(--ease), transform .35s var(--ease), box-shadow .35s var(--ease);
+  text-decoration:none;
+}
+.btn-primary:hover{background:var(--accent); transform:translateY(-2px); box-shadow:0 12px 28px -10px rgba(200,123,40,0.55);}
+.btn-outline{
+  padding:15px 34px;
+  border:1px solid rgba(240,229,204,0.25); color:var(--foreground);
+  font-size:12px; letter-spacing:0.15em; text-transform:uppercase;
+  transition:all .35s var(--ease);
+  text-decoration:none;
+}
+.btn-outline:hover{border-color:var(--primary); color:var(--primary); transform:translateY(-2px);}
+
+@keyframes fadeUp{
+  from{opacity:0; transform:translateY(18px);}
+  to{opacity:1; transform:translateY(0);}
+}
+
+@media(prefers-reduced-motion: reduce){
+  .ember{display:none;}
+  .eyebrow, .big-404, h1, p, .actions{opacity:1 !important; animation:none !important; transform:none !important;}
+}
+</style>
+</head>
+<body>
+
+<div class="embers" id="embers"></div>
+
+<div class="wrap">
+  <p class="eyebrow">Grill Lounge</p>
+  <div class="big-404">404</div>
+  <h1 class="font-display">This one fell through the grill.</h1>
+  <p>The page you're looking for isn't on the menu. It may have been moved, renamed, or never existed — but the Koila Shawaya definitely does.</p>
+  <div class="actions">
+    <a href="/" class="btn-primary">Back to Home</a>
+    <a href="/#menu" class="btn-outline">View Menu</a>
+  </div>
+</div>
+
+<script>
+const container = document.getElementById('embers');
+const count = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 26;
+for (let i = 0; i < count; i++) {
+  const el = document.createElement('div');
+  el.className = 'ember';
+  const left = Math.random() * 100;
+  const size = 2 + Math.random() * 3;
+  const duration = 6 + Math.random() * 6;
+  const delay = Math.random() * 8;
+  const drift = (Math.random() * 80 - 40) + 'px';
+  el.style.left = left + 'vw';
+  el.style.width = size + 'px';
+  el.style.height = size + 'px';
+  el.style.animationDuration = duration + 's';
+  el.style.animationDelay = delay + 's';
+  el.style.setProperty('--drift', drift);
+  container.appendChild(el);
+}
+</script>
+
+</body>
+</html>
